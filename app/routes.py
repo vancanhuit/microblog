@@ -5,8 +5,8 @@ from werkzeug.urls import url_parse
 from datetime import datetime
 from app import application, db
 from app.forms import (
-    LoginForm, RegistrationForm, EditProfileForm)
-from app.models import User
+    LoginForm, RegistrationForm, EditProfileForm, PostForm)
+from app.models import User, Post
 
 
 @application.before_request
@@ -16,21 +16,28 @@ def before_request():
         db.session.commit()
 
 
-@application.route('/')
-@application.route('/index')
+@application.route('/', methods=('GET', 'POST'))
+@application.route('/index', methods=('GET', 'POST'))
 @login_required
 def index():
-    posts = [
-        {
-            'author': {'username': 'Canh Dinh'},
-            'body': 'Post 1'
-        },
-        {
-            'author': {'username': 'Minh Dinh'},
-            'body': 'Post 2'
-        }
-    ]
-    return render_template('index.html', posts=posts)
+    form = PostForm()
+    if form.validate_on_submit():
+        post = Post(body=form.post.data, author=current_user)
+        db.session.add(post)
+        db.session.commit()
+        flash('Your post is now live!')
+        return redirect(url_for('index'))
+
+    page = request.args.get('page', 1, type=int)
+    posts = current_user.followed_posts().paginate(
+        page, application.config['POST_PER_PAGE'], False)
+    next_url = url_for('index', page=posts.next_num) \
+        if posts.has_next else None
+    prev_url = url_for('index', page=posts.prev_num) \
+        if posts.has_prev else None
+    return render_template(
+        'index.html', title='Home Page', form=form, posts=posts.items,
+        next_url=next_url, prev_url=prev_url)
 
 
 @application.route('/login', methods=('GET', 'POST'))
@@ -76,11 +83,16 @@ def register():
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
-    posts = [
-        {'author': user, 'body': 'Test post #1'},
-        {'author': user, 'body': 'Test post #2'}
-    ]
-    return render_template('user.html', user=user, posts=posts)
+    page = request.args.get('page', 1, type=int)
+    posts = user.posts.order_by(Post.timestamp.desc()).paginate(
+        page, application.config['POST_PER_PAGE'], False)
+    next_url = url_for('user', username=user.username, page=posts.next_num) \
+        if posts.has_next else None
+    prev_url = url_for('user', username=user.username, page=posts.prev_num) \
+        if posts.has_prev else None
+    return render_template(
+        'user.html', user=user, posts=posts.items,
+        next_url=next_url, prev_url=prev_url)
 
 
 @application.route('/edit_profile', methods=('GET', 'POST'))
@@ -129,3 +141,18 @@ def unfollow(username):
     db.session.commit()
     flash('You are not following {}'.format(username))
     return redirect(url_for('user', username=username))
+
+
+@application.route('/explore')
+@login_required
+def explore():
+    page = request.args.get('page', 1, type=int)
+    posts = Post.query.order_by(Post.timestamp.desc()).paginate(
+        page, application.config['POST_PER_PAGE'], False)
+    next_url = url_for('explore', page=posts.next_num) \
+        if posts.has_next else None
+    prev_url = url_for('explore', page=posts.prev_num) \
+        if posts.has_prev else None
+    return render_template(
+        'index.html', title='Explore', posts=posts.items,
+        prev_url=prev_url, next_url=next_url)

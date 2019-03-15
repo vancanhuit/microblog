@@ -5,7 +5,7 @@
   <tr valign="top">
     <td><img src="{{ user.avatar(128) }}" alt="avatar"></td>
     <td>
-      <h1>User: @{{ user.username }}</h1>
+      <h1>User: {{ user.username }}</h1>
       {% if user.about_me %}
         <p>{{ user.about_me }}</p>
       {% endif %}
@@ -27,4 +27,10 @@
 {% for post in posts %}
   {% include '_post.html' %}
 {% endfor %}
+{% if prev_url %}
+  <a href="{{ prev_url }}">Newer posts</a>
+{% endif %}
+{% if next_url %}
+  <a href="{{ next_url }}">Older posts</a>
+{% endif %}
 {% endblock %}
