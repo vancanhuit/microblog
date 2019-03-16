@@ -5,6 +5,7 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
+from elasticsearch import Elasticsearch
 import logging
 from logging.handlers import SMTPHandler, RotatingFileHandler
 import os
@@ -29,6 +30,10 @@ def create_app(config_class=Config):
     mail.init_app(application)
     bootstrap.init_app(application)
     moment.init_app(application)
+
+    application.elasticsearch = Elasticsearch([
+        application.config['ELASTICSEARCH_URL']]) \
+        if application.config['ELASTICSEARCH_URL'] else None
 
     if not application.debug and not application.testing:
         if application.config['MAIL_SERVER']:
