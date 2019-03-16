@@ -73,6 +73,4 @@ def create_app(config_class=Config):
     from app.main import bp as main_bp
     application.register_blueprint(main_bp)
 
-    from app import models
-
     return application
