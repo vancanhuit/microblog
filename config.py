@@ -18,3 +18,8 @@ class Config(object):
     ADMINS = str(os.environ.get('ADMINS')).split(';')
 
     POSTS_PER_PAGE = 3
+
+
+class TestConfig(Config):
+    TESTING = True
+    SQLALCHEMY_DATABASE_URI = 'sqlite://'
