@@ -49,3 +49,11 @@ Tutorial: https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-he
     ```sh
     flask run
     ```
+
+## Resources
+- [Flask framework](http://flask.pocoo.org/).
+- [Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/getting-started.html) and [Elasticsearch python client](https://elasticsearch-py.readthedocs.io/en/master/).
+- [SQLAlchemy](https://docs.sqlalchemy.org/en/latest/) and [Flask-SQLAlchemy](http://flask-sqlalchemy.pocoo.org).
+- [Heroku deployment](https://devcenter.heroku.com/categories/python-support).
+- [Gunicorn](https://gunicorn.org/).
+- [Psycopg](http://initd.org/psycopg/).
