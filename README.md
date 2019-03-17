@@ -30,12 +30,12 @@ Tutorial: https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-he
     FLASK_ENV=development
     #FLASK_DEBUG=1
 
-    MAIL_SERVER='smtp.gmail.com'
+    MAIL_SERVER="smtp.gmail.com"
     MAIL_PORT=587
     MAIL_USE_TLS=1
     MAIL_USERNAME="<your-mail-address-username>"
     MAIL_PASSWORD="<your-mail-address-password>"
-    ADMINS='<your-admin-email>'
+    ADMINS="<your-admin-emails-seperated-by-semicolon>"
 
     ELASTICSEARCH_URL="http://localhost:9200"
     ```
