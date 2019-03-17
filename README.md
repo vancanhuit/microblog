@@ -20,7 +20,7 @@ Tutorial: https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-he
 
 - Install [elasticsearch](https://www.elastic.co/downloads/elasticsearch), run it on your local machine and create `post` index:
     ```sh
-    curl -X PUT http://localhost:9200/post?pretty
+    curl -X PUT "http://localhost:9200/post?pretty"
     ```
 
 - Create `.env` file which contains necessary environment variables for running application with following contents:
