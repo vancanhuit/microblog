@@ -37,7 +37,7 @@ Tutorial: https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-he
     MAIL_PASSWORD="<your-mail-address-password>"
     ADMINS='<your-admin-email>'
 
-    ELASTICSEARCH_URL='http://localhost:9200'
+    ELASTICSEARCH_URL="http://localhost:9200"
     ```
 
 - Run the following command to initialize sqlite database:
