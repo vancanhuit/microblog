@@ -1,6 +1,7 @@
 alembic==1.0.8
 backcall==0.1.0
 blinker==1.4
+certifi==2019.3.9
 Click==7.0
 decorator==4.3.2
 dominate==2.3.5
