@@ -1,4 +1,5 @@
 # Simple Microblog web application using Python 3 and Flask framework
+[![Build Status](https://travis-ci.org/vancanhuit/microblog.svg?branch=develop)](https://travis-ci.org/vancanhuit/microblog)
 
 Tutorial: https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
 
