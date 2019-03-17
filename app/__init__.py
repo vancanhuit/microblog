@@ -58,18 +58,23 @@ def create_app(config_class=Config):
             mail_handler.setLevel(logging.ERROR)
             application.logger.addHandler(mail_handler)
 
-        if not os.path.exists('logs'):
-            os.mkdir('logs')
-        file_handler = RotatingFileHandler(
-            'logs/app.log', maxBytes=10240, backupCount=10)
-        file_handler.setFormatter(logging.Formatter(
-            '%(asctime)s %(levelname)s: %(message)s \
-                [in %(pathname)s:%(lineno)d]'))
-        file_handler.setLevel(logging.INFO)
-        application.logger.addHandler(file_handler)
+        if application.config['LOG_TO_STDOUT']:
+            stream_handler = logging.StreamHandler()
+            stream_handler.setLevel(logging.INFO)
+            application.logger.addHandler(stream_handler)
+        else:
+            if not os.path.exists('logs'):
+                os.mkdir('logs')
+                file_handler = RotatingFileHandler(
+                    'logs/app.log', maxBytes=10240, backupCount=10)
+                file_handler.setFormatter(logging.Formatter(
+                    '%(asctime)s %(levelname)s: %(message)s \
+                    [in %(pathname)s:%(lineno)d]'))
+                file_handler.setLevel(logging.INFO)
+                application.logger.addHandler(file_handler)
 
-        application.logger.setLevel(logging.INFO)
-        application.logger.info('Miroblog startup')
+                application.logger.setLevel(logging.INFO)
+                application.logger.info('Miroblog startup')
 
     from app.errors import bp as errors_bp
     application.register_blueprint(errors_bp)
