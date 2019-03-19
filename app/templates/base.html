@@ -35,6 +35,14 @@
         <li><a href="{{ url_for('auth.login') }}">Login</a></li>
         {% else %}
         <li><a href="{{ url_for('main.user', username=current_user.username) }}">Profile</a></li>
+        <li>
+          <a href="{{ url_for('main.messages') }}">
+            Messages
+            {% set count_new_messages = current_user.count_new_messages() %}
+            <span id="message_count" class="badge"
+              style="visibility: {% if count_new_messages %}visible {% else %}hidden {% endif %}">{{ count_new_messages }}</span>
+          </a>
+        </li>
         <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
         {% endif %}
       </ul>
@@ -59,6 +67,31 @@
   {% block scripts %}
     {{ super() }}
     {{ moment.include_moment() }}
+
+    <script>
+      function set_message_count(n) {
+        $('#message_count').text(n)
+        $('#message_count').css('visibility', n ? 'visible' : 'hidden')
+      }
+
+      {% if current_user.is_authenticated %}
+        $(function() {
+          var since = 0;
+          setInterval(function() {
+            $.ajax('{{ url_for('main.notifications') }}?since=' + since).done(
+              function(notifications) {
+                notifications.forEach(function(notification) {
+                  if (notification.name === 'unread_message_count') {
+                    set_message_count(notification.data)
+                  }
+                  since = notification.timestamp;
+                });
+              }
+            )
+          }, 10000);
+        });
+      {% endif %}
+    </script>
   {% endblock %}
 </div>
 {% endblock %}

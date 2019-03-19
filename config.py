@@ -17,7 +17,8 @@ class Config(object):
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     ADMINS = str(os.environ.get('ADMINS')).split(';')
 
-    POSTS_PER_PAGE = 3
+    POSTS_PER_PAGE = os.environ.get('POSTS_PER_PAGE') or 3
+    MESSAGES_PER_PAGE = os.environ.get('MESSAGES_PER_PAGE') or 3
 
     ELASTICSEARCH_URL = os.environ.get('ELASTICSEARCH_URL')
 
