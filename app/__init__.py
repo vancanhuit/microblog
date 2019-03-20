@@ -6,6 +6,8 @@ from flask_mail import Mail
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 from elasticsearch import Elasticsearch
+from redis import Redis
+import rq
 import logging
 from logging.handlers import SMTPHandler, RotatingFileHandler
 import os
@@ -34,6 +36,10 @@ def create_app(config_class=Config):
     application.elasticsearch = Elasticsearch([
         application.config['ELASTICSEARCH_URL']]) \
         if application.config['ELASTICSEARCH_URL'] else None
+
+    application.redis = Redis.from_url(application.config['REDIS_URL'])
+    application.task_queue = rq.Queue(
+        'microblog-tasks', connection=application.redis)
 
     if not application.debug and not application.testing:
         if application.config['MAIL_SERVER']:
