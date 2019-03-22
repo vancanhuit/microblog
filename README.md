@@ -43,7 +43,6 @@ Tutorial: https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-he
 
 - Run the following command to initialize sqlite database:
     ```sh
-    flask db init
     flask db upgrade
     ```
 - Run flask app and open http://localhost:5000 on your web browser:
@@ -53,8 +52,9 @@ Tutorial: https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-he
 
 ## Resources
 - [Flask framework](http://flask.pocoo.org/).
-- [Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/getting-started.html) and [Elasticsearch python client](https://elasticsearch-py.readthedocs.io/en/master/).
 - [SQLAlchemy](https://docs.sqlalchemy.org/en/latest/) and [Flask-SQLAlchemy](http://flask-sqlalchemy.pocoo.org).
-- [Heroku deployment](https://devcenter.heroku.com/categories/python-support).
+- [Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/getting-started.html) and [Elasticsearch python client](https://elasticsearch-py.readthedocs.io/en/master/).
 - [Gunicorn](https://gunicorn.org/).
 - [Psycopg](http://initd.org/psycopg/).
+- [Heroku deployment](https://devcenter.heroku.com/categories/python-support).
+- [The Twelve-Factor App](https://12factor.net/)
