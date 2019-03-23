@@ -7,21 +7,21 @@ Tutorial: https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-he
 
 - Activate a python virtual environment in your local machine:
     ```sh
-    python3 -m venv .venv
-    source .venv/bin/activate
-    pip install -U pip
-    pip install -r requirements.txt
+    $ python3 -m venv .venv
+    $ source .venv/bin/activate
+    $ pip install -U pip
+    $ pip install -r requirements.txt
     ```
 
 - Clone this repository into local machine:
     ```sh
-    git clone https://github.com/vancanhuit/microblog.git
-    cd microblog
+    $ git clone https://github.com/vancanhuit/microblog.git
+    $ cd microblog
     ```
 
 - Install [elasticsearch](https://www.elastic.co/downloads/elasticsearch), run it on your local machine and create `post` index:
     ```sh
-    curl -X PUT "http://localhost:9200/post?pretty"
+    $ curl -X PUT "http://localhost:9200/post?pretty"
     ```
 
 - Create `.env` file which contains necessary environment variables for running application with following contents:
@@ -43,16 +43,21 @@ Tutorial: https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-he
 
 - Run the following command to initialize sqlite database:
     ```sh
-    flask db upgrade
+    $ flask db upgrade
     ```
 
 - Start Redis MQ for background jobs:
     ```sh
-    rq worker microblog-tasks
+    $ rq worker microblog-tasks
+    ```
+
+- Run unit tests:
+    ```sh
+    $ pytest
     ```
 - Run flask app and open http://localhost:5000 on your web browser:
     ```sh
-    flask run
+    $ flask run
     ```
 
 ## Resources
