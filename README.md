@@ -45,6 +45,11 @@ Tutorial: https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-he
     ```sh
     flask db upgrade
     ```
+
+- Start Redis MQ for background jobs:
+    ```sh
+    rq worker microblog-tasks
+    ```
 - Run flask app and open http://localhost:5000 on your web browser:
     ```sh
     flask run
