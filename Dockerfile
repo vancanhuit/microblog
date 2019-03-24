@@ -5,10 +5,9 @@ RUN adduser -D microblog
 WORKDIR /home/microblog
 
 COPY requirements.txt requirements.txt
-RUN python -m venv venv
-RUN venv/bin/pip install -U pip setuptools
+RUN pip install -U pip setuptools
 RUN apk update && apk add postgresql-dev gcc python3-dev musl-dev
-RUN venv/bin/pip install -r requirements.txt
+RUN pip install -r requirements.txt
 
 COPY app app
 COPY migrations migrations
