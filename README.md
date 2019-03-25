@@ -52,9 +52,9 @@ Tutorial: https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-he
     $ rq worker microblog-tasks
     ```
 
-- Run unit tests:
+- Run unit tests with code coverage:
     ```sh
-    $ pytest
+    $ coverage run -m pytest
     ```
 - Run flask app and open http://localhost:5000 on your web browser:
     ```sh
